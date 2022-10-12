@@ -1,0 +1,19 @@
+.container.left{
+    flex-direction: column;
+    gap: 2em;
+}
+
+h1 {
+    text-transform: uppercase;
+    max-width: 400px;
+    text-align: center;
+}
+
+p {
+    max-width: 400px;
+    text-align: center;
+}
+
+a#startBtn {
+    width: fit-content;
+}

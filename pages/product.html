@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice generator || Product information</title>
+    <link rel="stylesheet" href="../css/style.min.css">
+    <script src="../js/script.js" defer></script>
+</head>
+<body>
+    <nav></nav>
+    <main>
+        <div class="container left">
+            <form>
+                <div id="title">Product's Info</div>
+                <label for="">Product's Name</label>
+                <div class="input_container">
+                    <input type="text" id="name">
+                </div>
+                <label for="">Product's Price</label>
+                <div class="input_container">
+                    <input type="number" id="price">
+                </div>
+                <label for="">Quantity</label>
+                <div class="input_container">
+                    <input type="number" id="quantity">
+                </div>
+                <a id="addProduct">Add product</a>
+                <a id="viewProducts">View products</a>
+                <a id="generateInvoice">Generate Invoice</a>
+            </form>
+        </div>
+        <div class="container right">
+            <header>
+
+            </header>
+            <div id="products"></div>
+        </div>
+    </main>
+    <script>
+        const addProductBtn = document.querySelector('#addProduct')
+        const inputs = document.querySelectorAll('input')
+
+        console.log(JSON.parse(localStorage.getItem('Invoice')))
+
+        // PRODUCT ADDITION EVENTS
+        addProductBtn.addEventListener('click',addProduct)
+        document.addEventListener('keyup',e=>{
+            if(e.key === 'Enter') addProduct()
+        })
+
+        function addProduct(){
+            const name = document.querySelector('#name').value
+            const price = document.querySelector('#price').value
+            const quantity = document.querySelector('#quantity').value
+            
+            // VALIDATE EMPTY FIELDS
+            if(name == '' || price == '' || quantity == '') return
+            
+            // ADD PRODUCT
+            const Invoice = JSON.parse(localStorage.getItem('Invoice'))
+            Invoice.Products.push({
+                product_name: name,
+                product_price: price,
+                product_quantity: quantity
+            })
+
+            localStorage.setItem('Invoice',JSON.stringify(Invoice))
+
+            // RENDER PRODUCTS
+            const updatedProducts = JSON.parse(localStorage.getItem('Invoice')).Products
+            const productsContainer = document.querySelector('#products')
+            productsContainer.innerHTML = ''
+            for(product of updatedProducts){
+                const name = product.product_name
+                const price = product.product_price
+                const quantity = product.product_quantity
+                addProductToDom(name,price,quantity)
+            }
+            // EMPTY ALL INPUTS
+            for(input of inputs){
+                input.value = ''
+            }
+
+            // FOCUS THE FIRST INPUT
+            inputs[0].focus()
+
+            console.log(Invoice)
+        }
+        
+        
+        function addProductToDom(name,price,quantity){
+            const productsContainer = document.querySelector('#products')
+            const product = createProduct(name,price,quantity)
+            productsContainer.appendChild(product)
+            // console.log(product)
+        }
+
+        function createProduct(name,price,quantity){
+            const html = `
+                <div class="product">
+                    <div class="product_number">No: <span>1</span></div>
+                    <div class="product_name">Product: <span>${name}</span></div>
+                    <div class="product_price">Price: <span>${price} TSH/=</span></div>
+                    <div class="quantity">Quantity: <span>${quantity}</span></div>
+                </div>
+            `
+            const template = document.createElement('template')
+            template.innerHTML = html.trim()
+            return template.content.firstElementChild
+        }
+    </script>
+</body>
+</html>

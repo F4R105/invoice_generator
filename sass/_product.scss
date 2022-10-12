@@ -1,0 +1,29 @@
+a#viewProducts {
+
+    @media screen and (min-width: 850px) {
+        display: none;
+    }
+}
+
+.container.right{
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    #products{
+        width: 100%;  
+        margin-top: 1em;
+        display: flex;flex-direction: column;
+        gap: 1em;
+        height: 80vh;
+        overflow-y: scroll;
+    }
+
+    .product{
+        background-color: white;
+        padding: 0.4em;
+        max-width: 500px;
+        box-shadow: 0 0 5px 5px rgba(black,0.2);
+    }
+}

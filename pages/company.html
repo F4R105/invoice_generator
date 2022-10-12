@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice generator || Company information</title>
+    <link rel="stylesheet" href="../css/style.min.css">
+</head>
+<body>
+    <nav></nav>
+    <main>
+        <div class="container left">
+            <form>
+                <div id="title">Your company</div>
+                <label for="">Company's Name</label>
+                <div class="input_container">
+                    <input type="text" id="company_name">
+                </div>
+                <label for="">Address/Phone/Email</label>
+                <div class="input_container">
+                    <input type="text" id="address">
+                </div>
+                <a href="client.html" id="toClientBtn">Continue</a>
+            </form>
+        </div>
+        <div class="container right"></div>
+    </main>
+    <script>
+        const toClientBtn = document.querySelector('#toClientBtn')
+        toClientBtn.addEventListener('click',addCompany)
+
+        function addCompany(){
+            localStorage.setItem('Invoice','')
+            
+            const newInvoice = {
+                Company: {
+                    company_name: document.querySelector('#company_name').value,
+                    address: document.querySelector('#address').value
+                }
+            }
+
+            localStorage.setItem('Invoice', JSON.stringify(newInvoice))
+        }
+    </script>
+</body>
+</html>

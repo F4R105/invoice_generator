@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice generator || Client information</title>
+    <link rel="stylesheet" href="../css/style.min.css">
+</head>
+<body>
+    <nav></nav>
+    <main>
+        <div class="container left">
+            <form>
+                <div id="title">Client's Info</div>
+                <label for="">Client's Name</label>
+                <div class="input_container">
+                    <input type="text" id="client_name">
+                </div>
+                <label for="">Address/Phone/Email</label>
+                <div class="input_container">
+                    <input type="text" id="address">
+                </div>
+                <a href="product.html" id="toProductBtn">Continue</a>
+            </form>
+        </div>
+        <div class="container right"></div>
+    </main>
+    <script>
+        const toProductBtn = document.querySelector('#toProductBtn')
+        toProductBtn.addEventListener('click',addClient)
+
+        console.log(JSON.parse(localStorage.getItem('Invoice')))
+
+        function addClient(){
+
+            const Invoice = JSON.parse(localStorage.getItem('Invoice'))
+            
+            Object.assign(Invoice,{
+                Client: {
+                    client_name: document.querySelector('#client_name').value,
+                    address: document.querySelector('#address').value
+                },
+                Products: []
+            })
+
+            localStorage.setItem('Invoice', JSON.stringify(Invoice))
+        }
+    </script>
+</body>
+</html>
